@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use("/api/employees", employeesRouter);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.get("/", (_req, res) => {
   res.send("SafetyHub API běží");
