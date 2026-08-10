@@ -2,7 +2,7 @@ import { Users, HardHat, HeartPulse } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import StatCard from "../components/StatCard";
 import UpcomingEvents from "../components/UpcomingEvents";
-import ComplianceCard from "../learning/ComplianceCard";
+import ComplianceCard from "../components/ComplianceCard";
 import { useEffect, useState } from "react";
 import EmployeesSection from "../components/EmployeesSection";
 import type { Employee } from "../types/employee";

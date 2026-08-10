@@ -1,18 +1,18 @@
 # SafetyHub
 
-Modern Occupational Health & Safety (OHS) management application built with React, TypeScript, Node.js, Express and MongoDB.
+SafetyHub is my full-stack project for Occupational Health & Safety (OHS) management.
 
-> 🚧 SafetyHub is currently under active development.
+I am building the application step by step while learning and improving my skills in React, TypeScript, Node.js and backend development.
+
+> 🚧 The project is currently under development.
 
 ## About
 
-SafetyHub is a full-stack web application designed to help companies manage occupational health and safety processes in one place.
+The goal of SafetyHub is to create one place for managing employees and important workplace safety information.
 
-The goal is to simplify the management of employees, medical examinations, training, PPE, documents, inspections and important deadlines.
+The application will gradually include medical examinations, training, PPE, documents, inspections and important deadlines.
 
 ## Live Demo
-
-The current version of SafetyHub is deployed online:
 
 **Frontend:**  
 https://safetyhub-client.onrender.com/dashboard
@@ -20,22 +20,21 @@ https://safetyhub-client.onrender.com/dashboard
 **API:**  
 https://safetyhub-api.onrender.com
 
-## Current Features
+## What Works Now
 
-The current development version includes:
+The current version includes:
 
-- Dashboard with an overview of key OHS data
+- Dashboard
 - Employee overview
+- Adding a new employee
 - Employee data stored in MongoDB
-- Adding new employees through a form
-- Medical examination status overview
-- Training status overview
-- PPE status overview
-- Upcoming events and deadlines
+- Medical examination status
+- Training status
+- PPE status
+- Upcoming events
 - Compliance overview
-- REST API communication between frontend and backend
-- Persistent data storage
-- Production deployment
+- Communication between React frontend and REST API
+- Online deployment
 
 ## Tech Stack
 
@@ -68,34 +67,37 @@ The current development version includes:
 ```text
 SafetyHub/
 ├── client/
+│   ├── public/
 │   └── src/
 │       ├── assets/
 │       ├── components/
-│       ├── data/
-│       ├── hooks/
 │       ├── layouts/
-│       ├── learning/
 │       ├── pages/
 │       ├── services/
 │       ├── types/
-│       └── utils/
+│       ├── App.tsx
+│       ├── index.css
+│       └── main.tsx
 │
 ├── server/
 │   └── src/
 │       ├── config/
+│       │   └── database.ts
 │       ├── models/
+│       │   └── Employee.ts
 │       ├── routes/
+│       │   └── employeesRoutes.ts
 │       └── server.ts
 │
 └── README.md
 ```
 
-## Architecture
+## How It Works
 
 ```text
 React + TypeScript
         │
-        │ HTTP / REST API
+        │ REST API
         ▼
 Node.js + Express
         │
@@ -103,21 +105,19 @@ Node.js + Express
 MongoDB Atlas
 ```
 
-## Planned Features
+## Next Steps
 
-SafetyHub is being developed step by step. Planned features include:
+I plan to continue developing:
 
-- Employee detail and editing
-- Employee deletion
-- Authentication and authorization
-- User roles (Admin / Manager / Employee)
-- Medical examination management
-- Training management
-- PPE issue records
-- Document management
-- Equipment and inspection tracking
+- Employee detail, editing and deletion
+- Authentication
+- User roles
+- Medical examinations
+- Training
+- PPE records
+- Documents
+- Inspections
 - Notifications and deadline alerts
-- Risk-based compliance overview
 - Company inspection readiness check
 - AI-assisted document analysis
 
@@ -129,7 +129,7 @@ Clone the repository:
 git clone https://github.com/KarelVanek90/safetyhub.git
 ```
 
-Install frontend dependencies:
+Frontend:
 
 ```bash
 cd client
@@ -137,7 +137,7 @@ npm install
 npm run dev
 ```
 
-Install backend dependencies:
+Backend:
 
 ```bash
 cd server
@@ -147,13 +147,13 @@ npm run dev
 
 ### Environment Variables
 
-The backend requires:
+Backend:
 
 ```env
 MONGO_URI=your_mongodb_connection_string
 ```
 
-The frontend requires:
+Frontend:
 
 ```env
 VITE_API_URL=http://localhost:5000
@@ -161,14 +161,8 @@ VITE_API_URL=http://localhost:5000
 
 Environment files are not included in the repository.
 
-## Project Status
-
-SafetyHub is a learning and portfolio project that is being developed into a more complete OHS management application.
-
-The project focuses not only on UI development, but also on building a real full-stack architecture, working with APIs, persistent data, TypeScript, and production deployment.
-
 ## Author
 
-**Karel Vaněk**
+Karel Vaněk
 
 GitHub: [KarelVanek90](https://github.com/KarelVanek90)
