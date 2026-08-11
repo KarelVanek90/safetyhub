@@ -18,15 +18,20 @@ type DashboardStat = {
 const Dashboard = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadEmployees = async () => {
     try {
+      setIsLoading(true);
+      setError(null);
       const data = await getEmployees();
 
       setEmployees(data);
     } catch (error) {
       console.error("Nepodařilo se načíst zaměstnance:", error);
       setError("Zaměstnance se nepodařilo načíst.");
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -101,7 +106,14 @@ const Dashboard = () => {
       </div>
 
       <div className="mb-8">
-        {error ? (
+        {isLoading ? (
+          <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <p className="text-sm text-gray-600">Načítám zaměstnance...</p>
+            <p className="mt-1 text-xs text-gray-400">
+              První načtení může u testovací verze chvíli trvat.
+            </p>
+          </div>
+        ) : error ? (
           <p className="text-sm text-red-600">{error}</p>
         ) : (
           <EmployeesSection
