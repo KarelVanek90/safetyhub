@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Employees from "./pages/Employees";
 import Documents from "./pages/Documents";
 import MainLayout from "./layouts/MainLayout";
+import EmployeeDetail from "./pages/EmployeeDetail";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/employees" element={<Employees />} />
+          <Route path="/employees/:id" element={<EmployeeDetail />} />
           <Route path="/documents" element={<Documents />} />
         </Route>
       </Routes>

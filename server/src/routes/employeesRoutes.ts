@@ -42,4 +42,24 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const result = await Employee.findById(req.params.id);
+
+    if (!result) {
+      return res.status(404).json({
+        msg: "zaměstnanec nenalezen",
+      });
+    }
+
+    return res.json({ docs: result });
+  } catch (error) {
+    console.error("CHYBA GET EMPLOYEE BY ID:", error);
+
+    return res.status(400).json({
+      msg: "Neplatné ID zaměstnance",
+    });
+  }
+});
+
 export default router;

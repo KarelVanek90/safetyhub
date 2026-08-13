@@ -1,6 +1,7 @@
 import { Check, AlertTriangle, X } from "lucide-react";
 
 import type { Employee } from "../types/employee";
+import { useNavigate } from "react-router-dom";
 
 type EmployeesTableProps = {
   employees: Employee[];
@@ -25,7 +26,12 @@ const statusConfig = {
     className: "bg-red-100 text-red-600",
   },
 };
+
 const EmployeesTable = ({ employees }: EmployeesTableProps) => {
+  const navigate = useNavigate();
+  const handleOpenDetail = (id: string) => {
+    navigate(`/employees/${id}`);
+  };
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
       <table className="w-full text-left">
@@ -46,7 +52,13 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
             const status = statusConfig[employee.status];
             const StatusIcon = status.icon;
             return (
-              <tr key={employee._id} className="border-t border-gray-100">
+              <tr
+                key={employee._id}
+                onClick={() => {
+                  handleOpenDetail(employee._id);
+                }}
+                className="border-t border-gray-100 cursor-pointer"
+              >
                 <td className="px-6 py-4 text-sm text-gray-700">
                   {employee.name}
                 </td>
