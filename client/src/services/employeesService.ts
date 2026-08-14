@@ -31,3 +31,7 @@ export const editEmployee = async (
 
   return response.data.docs;
 };
+
+export const deleteEmployee = async (id: string): Promise<void> => {
+  axios.delete(`${API_URL}/api/employees/${id}`);
+};

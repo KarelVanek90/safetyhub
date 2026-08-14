@@ -99,4 +99,24 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const result = await Employee.findOneAndDelete({ _id: req.params.id });
+
+    if (!result) {
+      return res.status(404).json({
+        msg: "Zaměstnanec nenalezen",
+      });
+    }
+
+    res.json({ msg: "Zaměstnanec odstraněn" });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      msg: "Chyba při mazání",
+    });
+  }
+});
+
 export default router;

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import type { Employee } from "../types/employee";
-import { getEmployeeById } from "../services/employeesService";
+import { getEmployeeById, deleteEmployee } from "../services/employeesService";
 import EmployeeDetailCard from "../components/EmployeeDetailCard";
 
 const EmployeeDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const loadEmployee = async (id: string) => {
     try {
@@ -22,6 +25,23 @@ const EmployeeDetail = () => {
       setError("Zaměstnance se nepodařilo načíst.");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Skutečně chcete zaměstnance smazat?")) {
+      return;
+    }
+    setIsDeleting(true);
+    setDeleteError(null);
+    try {
+      await deleteEmployee(id);
+      navigate(`/employees`);
+    } catch (error) {
+      console.error("Zaměstnance se nepodařilo smazat", error);
+      setDeleteError("Zaměstnance se nepodařilo smazat");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -45,6 +65,9 @@ const EmployeeDetail = () => {
         Detail zaměstnance
       </h1>
       <EmployeeDetailCard employee={employee} />
+      {deleteError && (
+        <p className="mt-4 text-sm text-red-600">{deleteError}</p>
+      )}
       <div className="mt-6 flex justify-end">
         <Link
           to="edit"
@@ -52,6 +75,14 @@ const EmployeeDetail = () => {
         >
           Upravit zaměstnance
         </Link>
+
+        <button
+          onClick={() => handleDelete(id)}
+          disabled={isDeleting}
+          className="ml-3 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isDeleting ? "Mažu..." : "Smazat zaměstnance"}
+        </button>
       </div>
     </div>
   );
