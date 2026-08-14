@@ -19,3 +19,15 @@ export const getEmployeeById = async (id: string): Promise<Employee> => {
 
   return response.data.docs;
 };
+
+export const editEmployee = async (
+  id: string,
+  employeeData: EmployeeFormData,
+): Promise<Employee> => {
+  const response = await axios.patch(
+    `${API_URL}/api/employees/${id}`,
+    employeeData,
+  );
+
+  return response.data.docs;
+};

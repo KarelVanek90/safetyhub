@@ -29,18 +29,10 @@ const EmployeeDetail = () => {
     if (id) loadEmployee(id);
   }, [id]);
 
-  if (typeof id === "undefined") {
-    return <div>Neplatné ID zaměstnance</div>;
-  }
-  if (isLoading) {
-    return <p>Právě teď čekám na odpověď serveru</p>;
-  }
-  if (error) {
-    return <p className="text-sm text-red-600">{error}</p>;
-  }
-  if (!employee) {
-    return <p>Zaměstnanec nebyl nalezen.</p>;
-  }
+  if (typeof id === "undefined") return <div>Neplatné ID zaměstnance</div>;
+  if (isLoading) return <p>Právě teď čekám na odpověď serveru</p>;
+  if (error) return <p className="text-sm text-red-600">{error}</p>;
+  if (!employee) return <p>Zaměstnanec nebyl nalezen.</p>;
   return (
     <div>
       <Link
@@ -49,7 +41,18 @@ const EmployeeDetail = () => {
       >
         ← Zpět na zaměstnance
       </Link>
+      <h1 className="mb-6 text-2xl font-bold text-gray-900">
+        Detail zaměstnance
+      </h1>
       <EmployeeDetailCard employee={employee} />
+      <div className="mt-6 flex justify-end">
+        <Link
+          to="edit"
+          className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+        >
+          Upravit zaměstnance
+        </Link>
+      </div>
     </div>
   );
 };

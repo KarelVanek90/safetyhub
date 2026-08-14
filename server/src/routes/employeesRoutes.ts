@@ -62,4 +62,41 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  try {
+    const { name, position, category, medicalExamDate, training, ppe } =
+      req.body;
+    const result = await Employee.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          name,
+          position,
+          category,
+          medicalExamDate,
+          training,
+          ppe,
+        },
+      },
+      {
+        new: true,
+      },
+    );
+    if (!result) {
+      return res.status(404).json({
+        msg: "zaměstnanec nenalezen",
+      });
+    }
+    return res.status(200).json({
+      msg: "Zaměstnanec byl úspěšně aktualizován",
+      docs: result,
+    });
+  } catch (error) {
+    console.error("CHYBA UPDATE EMPLOYEE:", error);
+    res.status(500).json({
+      msg: "Zaměstnance se nepodařilo aktualizovat",
+    });
+  }
+});
+
 export default router;
