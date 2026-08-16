@@ -1,25 +1,11 @@
 import EmployeesSection from "../components/EmployeesSection";
-import { getEmployees } from "../services/employeesService";
-import type { Employee } from "../types/employee";
-
-import { useEffect, useState } from "react";
+import useEmployees from "../hooks/useEmployees";
 
 const Employees = () => {
-  const [employees, setEmployees] = useState<Employee[]>([]);
+  const { employees, isLoading, error, loadEmployees } = useEmployees();
 
-  const loadEmployees = async () => {
-    try {
-      const data = await getEmployees();
-      setEmployees(data);
-    } catch (error) {
-      console.error("Nepodařilo se načíst zaměstnance:", error);
-    }
-  };
-
-  useEffect(() => {
-    loadEmployees();
-  }, []);
-
+  if (isLoading) return <p>Právě teď čekám na odpověď serveru</p>;
+  if (error) return <p className="text-sm text-red-600">{error}</p>;
   return (
     <div>
       <EmployeesSection

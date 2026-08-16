@@ -3,10 +3,10 @@ import type { LucideIcon } from "lucide-react";
 import StatCard from "../components/StatCard";
 import UpcomingEvents from "../components/UpcomingEvents";
 import ComplianceCard from "../components/ComplianceCard";
-import { useEffect, useState } from "react";
+
 import EmployeesSection from "../components/EmployeesSection";
-import type { Employee } from "../types/employee";
-import { getEmployees } from "../services/employeesService";
+
+import useEmployees from "../hooks/useEmployees";
 
 type DashboardStat = {
   title: string;
@@ -16,27 +16,7 @@ type DashboardStat = {
 };
 
 const Dashboard = () => {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const loadEmployees = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      const data = await getEmployees();
-
-      setEmployees(data);
-    } catch (error) {
-      console.error("Nepodařilo se načíst zaměstnance:", error);
-      setError("Zaměstnance se nepodařilo načíst.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    loadEmployees();
-  }, []);
+  const { employees, error, isLoading, loadEmployees } = useEmployees();
 
   const progressData = [
     { title: "Splněno", id: 1, percent: 85 },

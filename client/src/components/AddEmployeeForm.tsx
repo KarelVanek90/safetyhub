@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { EmployeeFormData } from "../types/employee";
 import { createEmployee } from "../services/employeesService";
+import EmployeeFormFields from "./EmployeeFormFields";
 
 type AddEmployeeFormProps = {
   onEmployeeAdded: () => void;
@@ -62,124 +63,7 @@ const AddEmployeeForm = ({
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Jméno
-            </label>
-
-            <input
-              type="text"
-              value={formData.name}
-              required
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  name: e.target.value,
-                });
-              }}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Pozice
-            </label>
-
-            <input
-              type="text"
-              value={formData.position}
-              required
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  position: e.target.value,
-                });
-              }}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Kategorie práce
-            </label>
-
-            <select
-              value={formData.category}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  category: Number(e.target.value),
-                });
-              }}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Lékařská prohlídka platná do
-            </label>
-
-            <input
-              type="date"
-              value={formData.medicalExamDate}
-              required
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  medicalExamDate: e.target.value,
-                });
-              }}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Školení
-            </label>
-
-            <select
-              value={formData.training}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  training: e.target.value as "Platné" | "Končí",
-                });
-              }}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
-            >
-              <option value="Platné">Platné</option>
-              <option value="Končí">Končí</option>
-            </select>
-          </div>
-
-          <div className="flex items-center gap-3 pt-7">
-            <input
-              type="checkbox"
-              name="ppe"
-              checked={formData.ppe}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  ppe: e.target.checked,
-                });
-              }}
-              className="h-4 w-4"
-            />
-
-            <label className="text-sm font-medium text-gray-700">
-              OOPP vydány
-            </label>
-          </div>
-        </div>
+        <EmployeeFormFields formData={formData} setFormData={setFormData} />
 
         {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 

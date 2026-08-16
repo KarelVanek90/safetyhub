@@ -109,7 +109,9 @@ router.delete("/:id", async (req, res) => {
       });
     }
 
-    res.json({ msg: "Zaměstnanec odstraněn" });
+    return res.status(200).json({
+      msg: "Zaměstnanec odstraněn",
+    });
   } catch (error) {
     console.error(error);
 
