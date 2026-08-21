@@ -77,7 +77,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
         <div>
-          <UpcomingEvents />
+          <UpcomingEvents employees={employees} />
         </div>
 
         <div className="xl:col-span-2">
