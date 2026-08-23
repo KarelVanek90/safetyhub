@@ -39,12 +39,14 @@ const EventItem = ({ event }: EventItemProps) => {
             </p>
           </div>
 
-          {event.daysLeft !== null && (
-            <p className="text-sm text-gray-500">
-              {event.category} končí za {event.daysLeft}{" "}
-              {getDayLabel(event.daysLeft)}
-            </p>
-          )}
+          <p className="text-sm text-gray-500">
+            {event.category}{" "}
+            {event.daysLeft !== null && (
+              <span>
+                · končí za {event.daysLeft} {getDayLabel(event.daysLeft)}
+              </span>
+            )}
+          </p>
         </div>
       </div>
       {event.date && (

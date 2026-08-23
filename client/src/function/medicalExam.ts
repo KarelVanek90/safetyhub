@@ -1,5 +1,6 @@
 type MedicalExamStatus = "valid" | "expiring" | "expired";
 type NextMedicalExamDate = Date | null;
+type EmployeeMedicalExamStatus = "valid" | "expiring" | "expired" | "unknown";
 
 export const getMedicalExamStatus = (date: Date): MedicalExamStatus => {
   const dateInspection = new Date(date.getTime());
@@ -9,13 +10,13 @@ export const getMedicalExamStatus = (date: Date): MedicalExamStatus => {
   const thirtyDaysFromToday = new Date(today.getTime());
   thirtyDaysFromToday.setDate(today.getDate() + 30);
   if (dateInspection < today) return "expired";
-  else if (dateInspection <= thirtyDaysFromToday) return "expiring";
+  if (dateInspection <= thirtyDaysFromToday) return "expiring";
   return "valid";
 };
 
 export const getNextMedicalExamDate = (
   date: string,
-  category: number
+  category: number,
 ): NextMedicalExamDate => {
   const dateInspection = new Date(date);
   if (category === 3) {
@@ -24,4 +25,13 @@ export const getNextMedicalExamDate = (
     return newDate;
   }
   return null;
+};
+
+export const getEmployeeMedicalExamStatus = (
+  medicalExamDate: string,
+  category: number,
+): EmployeeMedicalExamStatus => {
+  const nextMedicalExamDate = getNextMedicalExamDate(medicalExamDate, category);
+  if (!nextMedicalExamDate) return "unknown";
+  return getMedicalExamStatus(nextMedicalExamDate);
 };

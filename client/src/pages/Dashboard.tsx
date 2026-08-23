@@ -3,54 +3,86 @@ import type { LucideIcon } from "lucide-react";
 import StatCard from "../components/StatCard";
 import UpcomingEvents from "../components/UpcomingEvents";
 import ComplianceCard from "../components/ComplianceCard";
-
 import EmployeesSection from "../components/EmployeesSection";
-
 import useEmployees from "../hooks/useEmployees";
+import { getEmployeeMedicalExamStatus } from "../function/medicalExam";
+import { getPercentage } from "../function/mathUtils";
 
 type DashboardStat = {
   title: string;
-  value: string;
+  value: number;
   description: string;
   icon: LucideIcon;
 };
-
 const Dashboard = () => {
   const { employees, error, isLoading, loadEmployees } = useEmployees();
 
+  const medicalExamStatusCounts = employees.reduce(
+    (acc, employee) => {
+      const status = getEmployeeMedicalExamStatus(
+        employee.medicalExamDate,
+        employee.category,
+      );
+      acc[status]++;
+      return acc;
+    },
+    {
+      valid: 0,
+      expiring: 0,
+      expired: 0,
+      unknown: 0,
+    },
+  );
+
+  const knownMedicalExamCount =
+    medicalExamStatusCounts.expired +
+    medicalExamStatusCounts.expiring +
+    medicalExamStatusCounts.valid;
+
+  const validPercent = getPercentage(
+    medicalExamStatusCounts.valid,
+    knownMedicalExamCount,
+  );
+  const expiringPercent = getPercentage(
+    medicalExamStatusCounts.expiring,
+    knownMedicalExamCount,
+  );
+  const expiredPercent = getPercentage(
+    medicalExamStatusCounts.expired,
+    knownMedicalExamCount,
+  );
+
   const progressData = [
-    { title: "Splněno", id: 1, percent: 85 },
+    { title: "Splněno", id: 1, percent: validPercent },
     {
       title: "Blíží se termín",
-      description: "Blizi se k terminu",
       id: 2,
-      percent: 10,
+      percent: expiringPercent,
     },
     {
       title: "Po termínu",
-      description: "povinosti po terminu",
       id: 3,
-      percent: 5,
+      percent: expiredPercent,
     },
   ];
 
   const stats: DashboardStat[] = [
     {
       title: "Zaměstnanci",
-      value: "125",
-      description: "+4 za posledních 30 dní",
+      value: employees.length,
+      description: "celkový počet zaměstnanců",
       icon: Users,
     },
 
     {
       title: "Vydané OOPP",
-      value: "356",
+      value: 356,
       description: "vydání čeká",
       icon: HardHat,
     },
     {
       title: "Lékařské prohlídky",
-      value: "8",
+      value: medicalExamStatusCounts.expiring,
       description: "končí do 30 dnů",
       icon: HeartPulse,
     },
@@ -81,7 +113,10 @@ const Dashboard = () => {
         </div>
 
         <div className="xl:col-span-2">
-          <ComplianceCard data={progressData} />
+          <ComplianceCard
+            data={progressData}
+            unknownStatus={medicalExamStatusCounts.unknown}
+          />
         </div>
       </div>
 

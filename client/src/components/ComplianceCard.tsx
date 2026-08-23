@@ -1,16 +1,18 @@
 const COLORS = ["#22c55e", "#eab308", "#ef4444"];
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { getEmployeesLabel } from "../function/textUtils";
 
 type ProgressData = {
   id: number;
   title: string;
-  description?: string;
   percent: number;
 };
 type ComplianceCardProps = {
   data: ProgressData[];
+  unknownStatus: number;
 };
-const ComplianceCard = ({ data }: ComplianceCardProps) => {
+
+const ComplianceCard = ({ data, unknownStatus }: ComplianceCardProps) => {
   const completed = data[0]?.percent ?? 0;
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6">
@@ -67,6 +69,12 @@ const ComplianceCard = ({ data }: ComplianceCardProps) => {
                 </span>
               </div>
             ))}
+          </div>
+          <div className="mt-4">
+            <p className="text-sm text-gray-500">
+              <span className="font-semibold text-gray-700">Nelze určit:</span>{" "}
+              {unknownStatus} {getEmployeesLabel(unknownStatus)}
+            </p>
           </div>
         </div>
       </div>

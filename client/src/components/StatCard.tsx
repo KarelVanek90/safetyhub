@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 
 type StatCardProps = {
   title: string;
-  value: string;
+  value: number;
   description: string;
   icon: LucideIcon;
 };

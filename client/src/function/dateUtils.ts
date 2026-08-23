@@ -14,8 +14,7 @@ export const getRemainingDays = (date: Date): RemainingDays => {
 };
 
 export const getDayLabel = (days: number): DayLabel => {
-  if (days === 0) return "dnů";
-  else if (days === 1) return "den";
-  else if (days > 1 && days < 5) return "dny";
+  if (days === 1) return "den";
+  if (days > 1 && days < 5) return "dny";
   return "dnů";
 };
