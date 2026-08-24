@@ -1,9 +1,5 @@
 import type { EmployeeMedicalExamStatus } from "../types/medicalExamStatus";
-type MedicalExamStatusLabel =
-  | "Platné"
-  | "Končí"
-  | "Propadlé"
-  | "Není stanovena";
+type MedicalExamStatusLabel = "Platné" | "Končí" | "Propadlé" | "Nelze určit";
 
 export const getMedicalExamStatusLabel = (
   status: EmployeeMedicalExamStatus,
@@ -11,7 +7,7 @@ export const getMedicalExamStatusLabel = (
   if (status === "valid") return "Platné";
   if (status === "expiring") return "Končí";
   if (status === "expired") return "Propadlé";
-  return "Není stanovena";
+  return "Nelze určit";
 };
 
 export const getMedicalExamStatusStyles = (

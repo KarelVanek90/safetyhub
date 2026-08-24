@@ -1,16 +1,25 @@
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, Menu } from "lucide-react";
 
-const Header = () => {
+type HeaderProps = {
+  onMenuClick: () => void;
+};
+
+const Header = ({ onMenuClick }: HeaderProps) => {
   return (
     <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8">
-      <div>
-        <h1 className="text-3xl font-bold text-slate-800">Dobrý den, Karle</h1>
+      <button onClick={onMenuClick} className="lg:hidden">
+        <Menu size={24} />
+      </button>
+      <h1 className="text-xl md:text-3xl font-bold text-slate-800">
+        Dobrý den, Karle
+      </h1>
 
-        <p className="text-gray-500">Přehled bezpečnosti a plnění povinností</p>
-      </div>
+      <p className="hidden md:block text-gray-500">
+        Přehled bezpečnosti a plnění povinností
+      </p>
 
       <div className="flex items-center gap-6">
-        <div className="relative">
+        <div className="relative  hidden md:block">
           <Search size={18} className="absolute left-3 top-3 text-gray-400" />
 
           <input

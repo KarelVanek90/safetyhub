@@ -40,8 +40,8 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
 
   if (employees.length === 0) return <p>Nenalezen žádný zaměstnanec</p>;
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-      <table className="w-full text-left">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+      <table className="w-full min-w-[900px] text-left">
         <thead className="bg-gray-50 text-xs font-medium uppercase text-gray-500">
           <tr>
             <th className="px-6 py-3">Jméno</th>
@@ -82,23 +82,30 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                 <td className="px-6 py-4 text-sm text-gray-700">
                   {employee.category}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-700">
-                  <p>
-                    Poslední:{" "}
+                <td className="px-6 py-4 text-sm text-gray-700 ">
+                  <p className="flex justify-between gap-4">
+                    <span className="text-gray-400">Poslední:</span>
                     {new Date(employee.medicalExamDate).toLocaleDateString(
                       "cs-CZ",
                     )}
                   </p>
-                  <p>
-                    Příští:{" "}
+
+                  <p className="flex justify-between gap-4">
+                    <span className="text-gray-400">Příští:</span>
                     {nextMedicalExamDate
                       ? nextMedicalExamDate.toLocaleDateString("cs-CZ")
-                      : "Není stanovena"}
+                      : "-"}
                   </p>
-                  <p
-                    className={`text-sm px-2 py-0.5 rounded-full w-fit ${getMedicalExamStatusStyles(medicalExamStatus)}`}
-                  >
-                    {getMedicalExamStatusLabel(medicalExamStatus)}
+
+                  <p className="flex items-center justify-between gap-4">
+                    <span className="text-gray-400">Stav:</span>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs ${getMedicalExamStatusStyles(
+                        medicalExamStatus,
+                      )}`}
+                    >
+                      {getMedicalExamStatusLabel(medicalExamStatus)}
+                    </span>
                   </p>
                 </td>
 

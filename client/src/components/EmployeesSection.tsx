@@ -60,11 +60,11 @@ const EmployeesSection = ({
           </div>
         )}
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <select
             value={selectedMedicalStatus}
             onChange={(e) => setSelectedMedicalStatus(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 outline-none focus:border-blue-500 lg:w-auto"
           >
             <option value="all">Všechny prohlídky</option>
             <option value="valid">Platné</option>
@@ -75,7 +75,7 @@ const EmployeesSection = ({
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 outline-none focus:border-blue-500 lg:w-auto"
           >
             <option value="all">Všechny kategorie</option>
             <option value={1}>1</option>
@@ -83,7 +83,7 @@ const EmployeesSection = ({
             <option value={3}>3</option>
           </select>
 
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <Search
               size={18}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -94,7 +94,7 @@ const EmployeesSection = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Hledat zaměstnance..."
-              className="h-10 w-64 rounded-lg border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 sm:w-64"
             />
           </div>
           {showViewAll && (
