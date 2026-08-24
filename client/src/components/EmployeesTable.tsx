@@ -32,6 +32,8 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
   const handleOpenDetail = (id: string) => {
     navigate(`/employees/${id}`);
   };
+
+  if (employees.length === 0) return <p>Nenalezen žádný zaměstnanec</p>;
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
       <table className="w-full text-left">
@@ -70,12 +72,14 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-700">
                   {new Date(employee.medicalExamDate).toLocaleDateString(
-                    "cs-CZ",
+                    "cs-CZ"
                   )}
                 </td>
                 <td className="px-6 py-4">
                   <span
-                    className={`rounded-full px-3 py-1 text-xs font-medium ${trainingConfig[employee.training]}`}
+                    className={`rounded-full px-3 py-1 text-xs font-medium ${
+                      trainingConfig[employee.training]
+                    }`}
                   >
                     {employee.training}
                   </span>
