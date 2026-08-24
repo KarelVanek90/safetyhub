@@ -25,7 +25,7 @@ const ComplianceCard = ({ data, unknownStatus }: ComplianceCardProps) => {
           Detailní report
         </button>
       </div>
-      <div className="flex items-center gap-8">
+      <div className="flex flex-col items-center gap-8 sm:flex-row">
         <div className="relative h-52 w-52">
           <ResponsiveContainer>
             <PieChart>
@@ -51,7 +51,7 @@ const ComplianceCard = ({ data, unknownStatus }: ComplianceCardProps) => {
           </div>
         </div>
 
-        <div className="flex-1">
+        <div className="w-full sm:flex-1">
           <div className="flex-1 space-y-4">
             {data.map((item, index) => (
               <div key={item.id} className="flex items-center justify-between">
