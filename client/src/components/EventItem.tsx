@@ -1,23 +1,12 @@
 import { getDayLabel } from "../function/dateUtils";
+import {
+  getMedicalExamStatusLabel,
+  getMedicalExamStatusStyles,
+} from "../function/statusUtils";
 import type { Event } from "../types/event";
 
 type EventItemProps = {
   event: Event;
-};
-type DataValidity = "Platné" | "Končí" | "Propadlé" | "Nelze určit";
-
-const getDataValidity = (status: Event["status"]): DataValidity => {
-  if (status === "valid") return "Platné";
-  if (status === "expiring") return "Končí";
-  if (status === "expired") return "Propadlé";
-  return "Nelze určit";
-};
-
-const getDataValidityStyles = (status: Event["status"]): string => {
-  if (status === "valid") return "bg-green-100 text-green-600";
-  if (status === "expiring") return "bg-orange-100 text-orange-600";
-  if (status === "expired") return "bg-red-100 text-red-600";
-  return "bg-gray-100 text-gray-600";
 };
 
 const EventItem = ({ event }: EventItemProps) => {
@@ -33,9 +22,9 @@ const EventItem = ({ event }: EventItemProps) => {
             <p className="font-medium">{event.title}</p>
 
             <p
-              className={`text-sm px-2 py-0.5 rounded-full w-fit ${getDataValidityStyles(event.status)}`}
+              className={`text-sm px-2 py-0.5 rounded-full w-fit ${getMedicalExamStatusStyles(event.status)}`}
             >
-              {getDataValidity(event.status)}
+              {getMedicalExamStatusLabel(event.status)}
             </p>
           </div>
 

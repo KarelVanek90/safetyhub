@@ -1,8 +1,13 @@
+import type { EmployeeMedicalExamStatus } from "../types/medicalExamStatus";
+
 type MedicalExamStatus = "valid" | "expiring" | "expired";
 type NextMedicalExamDate = Date | null;
-type EmployeeMedicalExamStatus = "valid" | "expiring" | "expired" | "unknown";
+type EmployeeMedicalExamInfo = {
+  status: EmployeeMedicalExamStatus;
+  nextMedicalExamDate: NextMedicalExamDate;
+};
 
-export const getMedicalExamStatus = (date: Date): MedicalExamStatus => {
+const getMedicalExamStatus = (date: Date): MedicalExamStatus => {
   const dateInspection = new Date(date.getTime());
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -14,7 +19,7 @@ export const getMedicalExamStatus = (date: Date): MedicalExamStatus => {
   return "valid";
 };
 
-export const getNextMedicalExamDate = (
+const getNextMedicalExamDate = (
   date: string,
   category: number,
 ): NextMedicalExamDate => {
@@ -31,7 +36,16 @@ export const getEmployeeMedicalExamStatus = (
   medicalExamDate: string,
   category: number,
 ): EmployeeMedicalExamStatus => {
+  return getEmployeeMedicalExamInfo(medicalExamDate, category).status;
+};
+
+export const getEmployeeMedicalExamInfo = (
+  medicalExamDate: string,
+  category: number,
+): EmployeeMedicalExamInfo => {
   const nextMedicalExamDate = getNextMedicalExamDate(medicalExamDate, category);
-  if (!nextMedicalExamDate) return "unknown";
-  return getMedicalExamStatus(nextMedicalExamDate);
+  const status = nextMedicalExamDate
+    ? getMedicalExamStatus(nextMedicalExamDate)
+    : "unknown";
+  return { nextMedicalExamDate, status };
 };

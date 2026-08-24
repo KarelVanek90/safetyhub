@@ -72,7 +72,9 @@ const ComplianceCard = ({ data, unknownStatus }: ComplianceCardProps) => {
           </div>
           <div className="mt-4">
             <p className="text-sm text-gray-500">
-              <span className="font-semibold text-gray-700">Nelze určit:</span>{" "}
+              <span className="font-semibold text-gray-700">
+                Není stanovena:{" "}
+              </span>
               {unknownStatus} {getEmployeesLabel(unknownStatus)}
             </p>
           </div>

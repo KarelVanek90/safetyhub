@@ -1,24 +1,18 @@
 import { HeartPulse } from "lucide-react";
 import type { Employee } from "../types/employee";
-import {
-  getMedicalExamStatus,
-  getNextMedicalExamDate,
-} from "../function/medicalExam";
+import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
 import { getRemainingDays } from "../function/dateUtils";
 import type { Event } from "../types/event";
 import EventItem from "./EventItem";
 type UpcomingEventsProps = { employees: Employee[] };
 const UpcomingEvents = ({ employees }: UpcomingEventsProps) => {
   const medicalEvents: Event[] = employees.map((employee) => {
-    const nextMedicalExamDate = getNextMedicalExamDate(
+    const { nextMedicalExamDate, status } = getEmployeeMedicalExamInfo(
       employee.medicalExamDate,
       employee.category,
     );
-    const referenceStatus = nextMedicalExamDate
-      ? getMedicalExamStatus(nextMedicalExamDate)
-      : "unknown";
     const remainingDays =
-      nextMedicalExamDate && referenceStatus === "expiring"
+      nextMedicalExamDate && status === "expiring"
         ? getRemainingDays(nextMedicalExamDate)
         : null;
     return {
@@ -26,7 +20,7 @@ const UpcomingEvents = ({ employees }: UpcomingEventsProps) => {
       title: employee.name,
       category: "Lékařská prohlídka",
       date: nextMedicalExamDate,
-      status: referenceStatus,
+      status: status,
       daysLeft: remainingDays,
       icon: HeartPulse,
     };

@@ -2,6 +2,11 @@ import { Check, AlertTriangle, X } from "lucide-react";
 
 import type { Employee } from "../types/employee";
 import { useNavigate } from "react-router-dom";
+import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
+import {
+  getMedicalExamStatusLabel,
+  getMedicalExamStatusStyles,
+} from "../function/statusUtils";
 
 type EmployeesTableProps = {
   employees: Employee[];
@@ -51,8 +56,15 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
 
         <tbody>
           {employees.map((employee) => {
-            const status = statusConfig[employee.status];
-            const StatusIcon = status.icon;
+            const employeeStatus = statusConfig[employee.status];
+            const StatusIcon = employeeStatus.icon;
+
+            const { nextMedicalExamDate, status: medicalExamStatus } =
+              getEmployeeMedicalExamInfo(
+                employee.medicalExamDate,
+                employee.category,
+              );
+
             return (
               <tr
                 key={employee._id}
@@ -71,10 +83,25 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                   {employee.category}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  {new Date(employee.medicalExamDate).toLocaleDateString(
-                    "cs-CZ"
-                  )}
+                  <p>
+                    Poslední:{" "}
+                    {new Date(employee.medicalExamDate).toLocaleDateString(
+                      "cs-CZ",
+                    )}
+                  </p>
+                  <p>
+                    Příští:{" "}
+                    {nextMedicalExamDate
+                      ? nextMedicalExamDate.toLocaleDateString("cs-CZ")
+                      : "Není stanovena"}
+                  </p>
+                  <p
+                    className={`text-sm px-2 py-0.5 rounded-full w-fit ${getMedicalExamStatusStyles(medicalExamStatus)}`}
+                  >
+                    {getMedicalExamStatusLabel(medicalExamStatus)}
+                  </p>
                 </td>
+
                 <td className="px-6 py-4">
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-medium ${
@@ -97,7 +124,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-700">
                   <div
-                    className={`flex h-8 w-8 items-center justify-center rounded-full ${status.className}`}
+                    className={`flex h-8 w-8 items-center justify-center rounded-full ${employeeStatus.className}`}
                   >
                     <StatusIcon size={16} />
                   </div>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import AddEmployeeForm from "./AddEmployeeForm";
 import { Search } from "lucide-react";
 import { normalizeSearchText } from "../function/textUtils";
+import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
 
 type EmployeesSectionProps = {
   employees: Employee[];
@@ -22,14 +23,26 @@ const EmployeesSection = ({
   const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const normalizedSearchTerm = normalizeSearchText(searchTerm);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedMedicalStatus, setSelectedMedicalStatus] = useState("all");
 
   const filteredEmployees = employees.filter((employee) => {
+    const { status: medicalExamStatus } = getEmployeeMedicalExamInfo(
+      employee.medicalExamDate,
+      employee.category,
+    );
     const findEmployeeName = normalizeSearchText(employee.name);
     const findEmployeePosition = normalizeSearchText(employee.position);
-    return (
+    const matchesSearch =
       findEmployeeName.includes(normalizedSearchTerm) ||
-      findEmployeePosition.includes(normalizedSearchTerm)
-    );
+      findEmployeePosition.includes(normalizedSearchTerm);
+    const matchesCategory =
+      selectedCategory === "all" ||
+      Number(selectedCategory) === employee.category;
+    const matchesMedicalStatus =
+      selectedMedicalStatus === "all" ||
+      selectedMedicalStatus === medicalExamStatus;
+    return matchesSearch && matchesCategory && matchesMedicalStatus;
   });
 
   return (
@@ -48,6 +61,28 @@ const EmployeesSection = ({
         )}
 
         <div className="flex items-center gap-3">
+          <select
+            value={selectedMedicalStatus}
+            onChange={(e) => setSelectedMedicalStatus(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+          >
+            <option value="all">Všechny prohlídky</option>
+            <option value="valid">Platné</option>
+            <option value="expiring">Končí</option>
+            <option value="expired">Propadlé</option>
+            <option value="unknown">Není stanovena</option>
+          </select>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500"
+          >
+            <option value="all">Všechny kategorie</option>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+          </select>
+
           <div className="relative">
             <Search
               size={18}
