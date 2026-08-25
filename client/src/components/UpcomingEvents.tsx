@@ -9,7 +9,7 @@ const UpcomingEvents = ({ employees }: UpcomingEventsProps) => {
   const medicalEvents: Event[] = employees.map((employee) => {
     const { nextMedicalExamDate, status } = getEmployeeMedicalExamInfo(
       employee.medicalExamDate,
-      employee.category,
+      employee.category
     );
     const remainingDays =
       nextMedicalExamDate && status === "expiring"

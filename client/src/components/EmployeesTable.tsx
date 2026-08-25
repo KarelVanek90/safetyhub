@@ -62,7 +62,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
             const { nextMedicalExamDate, status: medicalExamStatus } =
               getEmployeeMedicalExamInfo(
                 employee.medicalExamDate,
-                employee.category,
+                employee.category
               );
 
             return (
@@ -82,36 +82,36 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                 <td className="px-6 py-4 text-sm text-gray-700">
                   {employee.category}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-700 ">
-                  <p className="flex justify-between gap-4">
+                <td className="px-6 py-4 text-sm text-gray-700">
+                  <div className="grid grid-cols-[70px_auto] items-center gap-x-4 gap-y-1">
                     <span className="text-gray-400">Poslední:</span>
-                    {new Date(employee.medicalExamDate).toLocaleDateString(
-                      "cs-CZ",
-                    )}
-                  </p>
+                    <span className="whitespace-nowrap">
+                      {new Date(employee.medicalExamDate).toLocaleDateString(
+                        "cs-CZ"
+                      )}
+                    </span>
 
-                  <p className="flex justify-between gap-4">
                     <span className="text-gray-400">Příští:</span>
-                    {nextMedicalExamDate
-                      ? nextMedicalExamDate.toLocaleDateString("cs-CZ")
-                      : "-"}
-                  </p>
+                    <span className="whitespace-nowrap">
+                      {nextMedicalExamDate
+                        ? nextMedicalExamDate.toLocaleDateString("cs-CZ")
+                        : "-"}
+                    </span>
 
-                  <p className="flex items-center justify-between gap-4">
                     <span className="text-gray-400">Stav:</span>
                     <span
-                      className={`rounded-full px-2 py-0.5 text-xs ${getMedicalExamStatusStyles(
-                        medicalExamStatus,
+                      className={`w-fit rounded-full px-2 py-0.5 text-xs ${getMedicalExamStatusStyles(
+                        medicalExamStatus
                       )}`}
                     >
                       {getMedicalExamStatusLabel(medicalExamStatus)}
                     </span>
-                  </p>
+                  </div>
                 </td>
 
                 <td className="px-6 py-4">
                   <span
-                    className={`rounded-full px-3 py-1 text-xs font-medium ${
+                    className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium ${
                       trainingConfig[employee.training]
                     }`}
                   >
@@ -120,7 +120,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                 </td>
                 <td className="px-6 py-4">
                   <span
-                    className={`rounded-full px-3 py-1 text-xs font-medium ${
+                    className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium ${
                       employee.ppe
                         ? "bg-green-100 text-green-700"
                         : "bg-red-100 text-red-700"

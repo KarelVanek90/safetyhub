@@ -12,7 +12,7 @@ type EventItemProps = {
 const EventItem = ({ event }: EventItemProps) => {
   const Icon = event.icon;
   return (
-    <div className="flex justify-between items-center border-b pb-3">
+    <div className="flex flex-col gap-2 border-b pb-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-3">
         <div className="bg-blue-100 p-2 rounded-lg">
           <Icon className="text-blue-600" size={20} />
@@ -22,7 +22,9 @@ const EventItem = ({ event }: EventItemProps) => {
             <p className="font-medium">{event.title}</p>
 
             <p
-              className={`text-sm px-2 py-0.5 rounded-full w-fit ${getMedicalExamStatusStyles(event.status)}`}
+              className={`text-sm px-2 py-0.5 rounded-full w-fit ${getMedicalExamStatusStyles(
+                event.status
+              )}`}
             >
               {getMedicalExamStatusLabel(event.status)}
             </p>
@@ -39,7 +41,7 @@ const EventItem = ({ event }: EventItemProps) => {
         </div>
       </div>
       {event.date && (
-        <p className="text-sm text-gray-500">
+        <p className="whitespace-nowrap text-sm text-gray-500 sm:ml-auto">
           {event.date.toLocaleDateString("cs-CZ")}
         </p>
       )}
