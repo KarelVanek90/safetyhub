@@ -5,7 +5,7 @@ import UpcomingEvents from "../components/UpcomingEvents";
 import ComplianceCard from "../components/ComplianceCard";
 import EmployeesSection from "../components/EmployeesSection";
 import useEmployees from "../hooks/useEmployees";
-import { getEmployeeMedicalExamStatus } from "../function/medicalExam";
+import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
 import { getPercentage } from "../function/mathUtils";
 
 type DashboardStat = {
@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   const medicalExamStatusCounts = employees.reduce(
     (acc, employee) => {
-      const status = getEmployeeMedicalExamStatus(
+      const { status } = getEmployeeMedicalExamInfo(
         employee.medicalExamDate,
         employee.category,
       );

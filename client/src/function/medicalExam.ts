@@ -24,19 +24,15 @@ const getNextMedicalExamDate = (
   category: number,
 ): NextMedicalExamDate => {
   const dateInspection = new Date(date);
+  if (Number.isNaN(dateInspection.getTime())) {
+    return null;
+  }
   if (category === 3) {
     const newDate = new Date(dateInspection.getTime());
     newDate.setFullYear(dateInspection.getFullYear() + 2);
     return newDate;
   }
   return null;
-};
-
-export const getEmployeeMedicalExamStatus = (
-  medicalExamDate: string,
-  category: number,
-): EmployeeMedicalExamStatus => {
-  return getEmployeeMedicalExamInfo(medicalExamDate, category).status;
 };
 
 export const getEmployeeMedicalExamInfo = (
