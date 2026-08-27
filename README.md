@@ -24,16 +24,24 @@ https://safetyhub-api.onrender.com
 
 The current version includes:
 
-- Dashboard
-- Employee overview
-- Adding a new employee
-- Employee data stored in MongoDB
-- Medical examination status
-- Training status
-- PPE status
-- Upcoming events
-- Compliance overview
+- Responsive dashboard
+- Employee CRUD
+  - Create employee
+  - Employee list
+  - Employee detail
+  - Edit employee
+  - Delete employee
+- Employee search by name and position
+- Filtering by work category and medical examination status
+- Medical examination business logic
+  - Calculation of the next examination date
+  - Valid, expiring, expired and unknown statuses
+- Dynamic upcoming events
+- Dynamic compliance overview
+- Training and PPE status overview
+- Responsive mobile navigation
 - Communication between React frontend and REST API
+- MongoDB data persistence
 - Online deployment
 
 ## Tech Stack
