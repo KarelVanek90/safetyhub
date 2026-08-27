@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/database";
 import employeesRouter from "./routes/employeesRoutes";
+import documentsRoutes from "./routes/documentsRoutes";
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/employees", employeesRouter);
+app.use("/api/documents", documentsRoutes);
 
 const PORT = process.env.PORT || 5000;
 
