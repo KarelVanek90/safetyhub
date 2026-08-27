@@ -1,6 +1,6 @@
 const COLORS = ["#22c55e", "#eab308", "#ef4444"];
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { getEmployeesLabel } from "../function/textUtils";
+import { getEmployeesLabel } from "../functions/textUtils";
 
 type ProgressData = {
   id: number;

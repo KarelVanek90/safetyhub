@@ -4,8 +4,8 @@ import type { Employee } from "../types/employee";
 import { useState } from "react";
 import AddEmployeeForm from "./AddEmployeeForm";
 import { Search } from "lucide-react";
-import { normalizeSearchText } from "../function/textUtils";
-import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
+import { normalizeSearchText } from "../functions/textUtils";
+import { getEmployeeMedicalExamInfo } from "../functions/medicalExam";
 
 type EmployeesSectionProps = {
   employees: Employee[];

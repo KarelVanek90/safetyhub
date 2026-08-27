@@ -1,7 +1,7 @@
 import { HeartPulse } from "lucide-react";
 import type { Employee } from "../types/employee";
-import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
-import { getRemainingDays } from "../function/dateUtils";
+import { getEmployeeMedicalExamInfo } from "../functions/medicalExam";
+import { getRemainingDays } from "../functions/dateUtils";
 import type { Event } from "../types/event";
 import EventItem from "./EventItem";
 type UpcomingEventsProps = { employees: Employee[] };
@@ -9,7 +9,7 @@ const UpcomingEvents = ({ employees }: UpcomingEventsProps) => {
   const medicalEvents: Event[] = employees.map((employee) => {
     const { nextMedicalExamDate, status } = getEmployeeMedicalExamInfo(
       employee.medicalExamDate,
-      employee.category
+      employee.category,
     );
     const remainingDays =
       nextMedicalExamDate && status === "expiring"

@@ -5,8 +5,8 @@ import UpcomingEvents from "../components/UpcomingEvents";
 import ComplianceCard from "../components/ComplianceCard";
 import EmployeesSection from "../components/EmployeesSection";
 import useEmployees from "../hooks/useEmployees";
-import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
-import { getPercentage } from "../function/mathUtils";
+import { getEmployeeMedicalExamInfo } from "../functions/medicalExam";
+import { getPercentage } from "../functions/mathUtils";
 
 type DashboardStat = {
   title: string;

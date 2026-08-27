@@ -1,8 +1,8 @@
-import { getDayLabel } from "../function/dateUtils";
+import { getDayLabel } from "../functions/dateUtils";
 import {
   getMedicalExamStatusLabel,
   getMedicalExamStatusStyles,
-} from "../function/statusUtils";
+} from "../functions/statusUtils";
 import type { Event } from "../types/event";
 
 type EventItemProps = {
@@ -23,7 +23,7 @@ const EventItem = ({ event }: EventItemProps) => {
 
             <p
               className={`text-sm px-2 py-0.5 rounded-full w-fit ${getMedicalExamStatusStyles(
-                event.status
+                event.status,
               )}`}
             >
               {getMedicalExamStatusLabel(event.status)}

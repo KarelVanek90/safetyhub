@@ -2,11 +2,11 @@ import { Check, AlertTriangle, X } from "lucide-react";
 
 import type { Employee } from "../types/employee";
 import { useNavigate } from "react-router-dom";
-import { getEmployeeMedicalExamInfo } from "../function/medicalExam";
+import { getEmployeeMedicalExamInfo } from "../functions/medicalExam";
 import {
   getMedicalExamStatusLabel,
   getMedicalExamStatusStyles,
-} from "../function/statusUtils";
+} from "../functions/statusUtils";
 
 type EmployeesTableProps = {
   employees: Employee[];
@@ -62,7 +62,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
             const { nextMedicalExamDate, status: medicalExamStatus } =
               getEmployeeMedicalExamInfo(
                 employee.medicalExamDate,
-                employee.category
+                employee.category,
               );
 
             return (
@@ -87,7 +87,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                     <span className="text-gray-400">Poslední:</span>
                     <span className="whitespace-nowrap">
                       {new Date(employee.medicalExamDate).toLocaleDateString(
-                        "cs-CZ"
+                        "cs-CZ",
                       )}
                     </span>
 
@@ -101,7 +101,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                     <span className="text-gray-400">Stav:</span>
                     <span
                       className={`w-fit rounded-full px-2 py-0.5 text-xs ${getMedicalExamStatusStyles(
-                        medicalExamStatus
+                        medicalExamStatus,
                       )}`}
                     >
                       {getMedicalExamStatusLabel(medicalExamStatus)}
