@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Document } from "../types/document";
+import type { Document, DocumentFormData } from "../types/document";
 const API_URL = import.meta.env.VITE_API_URL;
 const DOCUMENTS_URL = `${API_URL}/api/documents`;
 
@@ -10,6 +10,14 @@ type DocumentsResponse = {
 
 export const getDocuments = async (): Promise<Document[]> => {
   const response = await axios.get<DocumentsResponse>(DOCUMENTS_URL);
+
+  return response.data.docs;
+};
+
+export const createDocument = async (
+  documentData: DocumentFormData
+): Promise<Document> => {
+  const response = await axios.post(DOCUMENTS_URL, documentData);
 
   return response.data.docs;
 };
