@@ -7,6 +7,7 @@ import Documents from "./pages/Documents";
 import MainLayout from "./layouts/MainLayout";
 import EmployeeDetail from "./pages/EmployeeDetail";
 import EditEmployee from "./pages/EditEmployee";
+import DocumentDetail from "./pages/DocumentDetail";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/employees/:id" element={<EmployeeDetail />} />
           <Route path="/employees/:id/edit" element={<EditEmployee />} />
           <Route path="/documents" element={<Documents />} />
+          <Route path="/document/:id" element={<DocumentDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

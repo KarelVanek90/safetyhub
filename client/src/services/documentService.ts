@@ -7,6 +7,10 @@ type DocumentsResponse = {
   msg: string;
   docs: Document[];
 };
+type DocumentResponse = {
+  msg: string;
+  docs: Document;
+};
 
 export const getDocuments = async (): Promise<Document[]> => {
   const response = await axios.get<DocumentsResponse>(DOCUMENTS_URL);
@@ -15,9 +19,18 @@ export const getDocuments = async (): Promise<Document[]> => {
 };
 
 export const createDocument = async (
-  documentData: DocumentFormData
+  documentData: DocumentFormData,
 ): Promise<Document> => {
-  const response = await axios.post(DOCUMENTS_URL, documentData);
+  const response = await axios.post<DocumentResponse>(
+    DOCUMENTS_URL,
+    documentData,
+  );
+
+  return response.data.docs;
+};
+
+export const getDocumentById = async (id: string): Promise<Document> => {
+  const response = await axios.get<DocumentResponse>(`${DOCUMENTS_URL}/${id}`);
 
   return response.data.docs;
 };
