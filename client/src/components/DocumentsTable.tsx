@@ -57,7 +57,7 @@ const DocumentsTable = ({ documents }: DocumentsTableProps) => {
               <button
                 type="button"
                 onClick={() => handleSort("expiryDate")}
-                className="flex cursor-pointer items-center gap-1 hover:text-gray-900"
+                className="flex cursor-pointer items-center gap-1 whitespace-nowrap hover:text-gray-900"
               >
                 Platnost do
                 {sortKey === "expiryDate" &&
@@ -73,7 +73,7 @@ const DocumentsTable = ({ documents }: DocumentsTableProps) => {
               <button
                 type="button"
                 onClick={() => handleSort("updatedAt")}
-                className="flex cursor-pointer items-center gap-1 hover:text-gray-900"
+                className="flex cursor-pointer items-center gap-1 whitespace-nowrap hover:text-gray-900"
               >
                 Poslední aktualizace
                 {sortKey === "updatedAt" &&
@@ -94,7 +94,7 @@ const DocumentsTable = ({ documents }: DocumentsTableProps) => {
                 onClick={() => {
                   handleOpenDetail(document._id);
                 }}
-                className="border-t border-gray-100 transition-colors hover:bg-gray-50"
+                className="border-t border-gray-100 transition-colors cursor-pointer hover:bg-gray-100"
               >
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
                   {document.title}

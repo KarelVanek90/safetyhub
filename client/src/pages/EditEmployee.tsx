@@ -25,7 +25,7 @@ const EditEmployee = () => {
       navigate(`/employees/${id}`);
     } catch (error) {
       console.error("Zaměstnance se nepodařilo aktualizovat:", error);
-      setSaveError("Zaměstnance se nepodařilo aktualizovat:");
+      setSaveError("Zaměstnance se nepodařilo aktualizovat.");
     } finally {
       setIsSaving(false);
     }

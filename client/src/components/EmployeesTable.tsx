@@ -41,7 +41,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
   if (employees.length === 0) return <p>Nenalezen žádný zaměstnanec</p>;
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
-      <table className="w-full min-w-[900px] text-left">
+      <table className="w-full min-w-225 text-left">
         <thead className="bg-gray-50 text-xs font-medium uppercase text-gray-500">
           <tr>
             <th className="px-6 py-3">Jméno</th>
@@ -71,7 +71,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
                 onClick={() => {
                   handleOpenDetail(employee._id);
                 }}
-                className="border-t border-gray-100 cursor-pointer"
+                className="border-t border-gray-100 transition-colors cursor-pointer hover:bg-gray-100"
               >
                 <td className="px-6 py-4 text-sm text-gray-700">
                   {employee.name}
