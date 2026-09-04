@@ -34,3 +34,15 @@ export const getDocumentById = async (id: string): Promise<Document> => {
 
   return response.data.docs;
 };
+
+export const editDocument = async (
+  id: string,
+  documentData: DocumentFormData,
+): Promise<Document> => {
+  const response = await axios.patch<DocumentResponse>(
+    `${DOCUMENTS_URL}/${id}`,
+    documentData,
+  );
+
+  return response.data.docs;
+};

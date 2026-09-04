@@ -119,32 +119,63 @@ router.patch("/:id", async (req, res) => {
         msg: "Neplatné ID dokumentu",
       });
     }
-    if (employeeId) {
-      if (!mongoose.Types.ObjectId.isValid(employeeId)) {
-        return res.status(400).json({
-          msg: "Neplatné ID zaměstnance",
+    const fieldsToUpdate = {};
+    const fieldsToUnset = {};
+    const allowedFields = ["title", "category", "issueDate", "note", "fileUrl"];
+
+    allowedFields.forEach((item) => {
+      if (Object.hasOwn(req.body, item)) {
+        Object.assign(fieldsToUpdate, {
+          [item]: req.body[item],
         });
       }
-      const employee = await Employee.findById(employeeId);
-      if (!employee) {
-        return res.status(404).json({
-          msg: "Zaměstnanec nebyl nalezen",
+    });
+
+    if (Object.hasOwn(req.body, "employeeId")) {
+      if (employeeId) {
+        if (!mongoose.Types.ObjectId.isValid(employeeId)) {
+          return res.status(400).json({
+            msg: "Neplatné ID zaměstnance",
+          });
+        }
+        const employee = await Employee.findById(employeeId);
+        if (!employee) {
+          return res.status(404).json({
+            msg: "Zaměstnanec nebyl nalezen",
+          });
+        }
+        Object.assign(fieldsToUpdate, { employeeId });
+      } else {
+        Object.assign(fieldsToUnset, {
+          employeeId: 1,
         });
       }
     }
+    if (Object.hasOwn(req.body, "expiryDate")) {
+      if (expiryDate) {
+        Object.assign(fieldsToUpdate, { expiryDate });
+      } else {
+        Object.assign(fieldsToUnset, {
+          expiryDate: 1,
+        });
+      }
+    }
+    const updateData = {};
+    if (Object.keys(fieldsToUpdate).length > 0) {
+      Object.assign(updateData, { $set: fieldsToUpdate });
+    }
+    if (Object.keys(fieldsToUnset).length > 0) {
+      Object.assign(updateData, { $unset: fieldsToUnset });
+    }
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({
+        msg: "Nebyla odeslána žádná data k aktualizaci",
+      });
+    }
+
     const result = await Document.findOneAndUpdate(
       { _id: req.params.id },
-      {
-        $set: {
-          title,
-          category,
-          employeeId,
-          issueDate,
-          expiryDate,
-          note,
-          fileUrl,
-        },
-      },
+      updateData,
       {
         new: true,
         runValidators: true,

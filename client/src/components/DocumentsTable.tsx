@@ -44,7 +44,7 @@ const DocumentsTable = ({ documents }: DocumentsTableProps) => {
   });
 
   const handleOpenDetail = (id: string) => {
-    navigate(`/document/${id}`);
+    navigate(`/documents/${id}`);
   };
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">

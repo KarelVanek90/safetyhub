@@ -8,6 +8,7 @@ import MainLayout from "./layouts/MainLayout";
 import EmployeeDetail from "./pages/EmployeeDetail";
 import EditEmployee from "./pages/EditEmployee";
 import DocumentDetail from "./pages/DocumentDetail";
+import EditDocument from "./pages/EditDocument";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Route path="/employees/:id" element={<EmployeeDetail />} />
           <Route path="/employees/:id/edit" element={<EditEmployee />} />
           <Route path="/documents" element={<Documents />} />
-          <Route path="/document/:id" element={<DocumentDetail />} />
+          <Route path="/documents/:id" element={<DocumentDetail />} />
+          <Route path="/documents/:id/edit" element={<EditDocument />} />
         </Route>
       </Routes>
     </BrowserRouter>
