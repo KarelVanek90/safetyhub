@@ -8,9 +8,11 @@ I am building the application step by step while learning and improving my skill
 
 ## About
 
-The goal of SafetyHub is to create one place for managing employees and important workplace safety information.
+SafetyHub is a full-stack application for managing workplace safety and HR-related records.
 
-The application will gradually include medical examinations, training, PPE, documents, inspections and important deadlines.
+The goal is not only to store data, but gradually build business logic that can identify upcoming deadlines, expired obligations and missing records.
+
+The application currently focuses on employee and document management, medical examination tracking and deadline-related business logic, with additional modules planned for training, PPE and inspections.
 
 ## Live Demo
 
@@ -43,6 +45,21 @@ The current version includes:
 - Communication between React frontend and REST API
 - MongoDB data persistence
 - Online deployment
+- Document management
+  - Create document
+  - Document list
+  - Document detail
+  - Edit document
+  - Delete document
+  - Employee and company document assignment
+  - Optional expiration dates
+  - Sorting by expiration date and last update
+
+## Current Focus
+
+The current development focus is expanding the Documents module with business logic for document validity and expiration.
+
+The next step is to derive document statuses from expiration dates so SafetyHub can identify valid, expiring and expired documents and later use this information in dashboard events, compliance monitoring and notifications.
 
 ## Tech Stack
 
@@ -55,6 +72,7 @@ The current version includes:
 - React Router
 - Axios
 - Lucide React
+- Recharts
 
 ### Backend
 
@@ -74,29 +92,18 @@ The current version includes:
 
 ```text
 SafetyHub/
-├── client/
-│   ├── public/
-│   └── src/
-│       ├── assets/
-│       ├── components/
-│       ├── layouts/
-│       ├── pages/
-│       ├── services/
-│       ├── types/
-│       ├── App.tsx
-│       ├── index.css
-│       └── main.tsx
-│
-├── server/
-│   └── src/
-│       ├── config/
-│       │   └── database.ts
-│       ├── models/
-│       │   └── Employee.ts
-│       ├── routes/
-│       │   └── employeesRoutes.ts
-│       └── server.ts
-│
+├── client/src/
+│   ├── components/
+│   ├── functions/
+│   ├── hooks/
+│   ├── layouts/
+│   ├── pages/
+│   ├── services/
+│   └── types/
+├── server/src/
+│   ├── config/
+│   ├── models/
+│   └── routes/
 └── README.md
 ```
 
@@ -115,16 +122,14 @@ MongoDB Atlas
 
 ## Next Steps
 
-I plan to continue developing:
+Planned development:
 
-- Employee detail, editing and deletion
+- Document validity and expiration status
+- Training management
+- PPE records
+- Inspections and checks
 - Authentication
 - User roles
-- Medical examinations
-- Training
-- PPE records
-- Documents
-- Inspections
 - Notifications and deadline alerts
 - Company inspection readiness check
 - AI-assisted document analysis
