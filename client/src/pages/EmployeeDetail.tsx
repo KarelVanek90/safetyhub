@@ -19,10 +19,10 @@ const EmployeeDetail = () => {
     setDeleteError(null);
     try {
       await deleteEmployee(id);
-      navigate(`/employees`);
+      navigate("/employees");
     } catch (error) {
       console.error("Zaměstnance se nepodařilo smazat", error);
-      setDeleteError("Zaměstnance se nepodařilo smazat");
+      setDeleteError("Zaměstnance se nepodařilo smazat.");
     } finally {
       setIsDeleting(false);
     }
@@ -58,7 +58,7 @@ const EmployeeDetail = () => {
         <button
           onClick={() => handleDelete(id)}
           disabled={isDeleting}
-          className="ml-3 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="ml-3 cursor-pointer rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isDeleting ? "Mažu..." : "Smazat zaměstnance"}
         </button>
