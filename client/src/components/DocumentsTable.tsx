@@ -2,6 +2,12 @@ import { useState } from "react";
 import type { Document, DocumentCategory } from "../types/document";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { getValidityStatus } from "../functions/dateUtils";
+import type { DocumentStatus } from "../types/documentStatus";
+import {
+  getValidityStatusLabel,
+  getValidityStatusStyles,
+} from "../functions/statusUtils";
 
 type DocumentsTableProps = {
   documents: Document[];
@@ -88,6 +94,9 @@ const DocumentsTable = ({ documents }: DocumentsTableProps) => {
         </thead>
         <tbody>
           {sortedDocuments.map((document) => {
+            const status: DocumentStatus = document.expiryDate
+              ? getValidityStatus(new Date(document.expiryDate))
+              : "no-expiry";
             return (
               <tr
                 key={document._id}
@@ -105,13 +114,27 @@ const DocumentsTable = ({ documents }: DocumentsTableProps) => {
                   </span>
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-700">
-                  <span className="whitespace-nowrap">
-                    {document.expiryDate
-                      ? new Date(document.expiryDate).toLocaleDateString(
-                          "cs-CZ",
-                        )
-                      : "-"}
-                  </span>
+                  <div className="flex flex-col gap-1">
+                    <span className="whitespace-nowrap">
+                      {document.expiryDate
+                        ? new Date(document.expiryDate).toLocaleDateString(
+                            "cs-CZ",
+                          )
+                        : "-"}
+                    </span>
+
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded-full w-fit ${
+                        status === "no-expiry"
+                          ? "bg-gray-100 text-gray-600"
+                          : getValidityStatusStyles(status)
+                      }`}
+                    >
+                      {status === "no-expiry"
+                        ? "Bez omezení"
+                        : getValidityStatusLabel(status)}
+                    </span>
+                  </div>
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-700">
                   {document.employeeId?.name ?? "Firma"}

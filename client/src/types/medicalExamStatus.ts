@@ -1,5 +1,3 @@
-export type EmployeeMedicalExamStatus =
-  | "valid"
-  | "expiring"
-  | "expired"
-  | "unknown";
+import type { ValidityStatus } from "./validityStatus";
+
+export type EmployeeMedicalExamStatus = ValidityStatus | "unknown";

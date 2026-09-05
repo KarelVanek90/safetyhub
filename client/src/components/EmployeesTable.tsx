@@ -4,8 +4,8 @@ import type { Employee } from "../types/employee";
 import { useNavigate } from "react-router-dom";
 import { getEmployeeMedicalExamInfo } from "../functions/medicalExam";
 import {
-  getMedicalExamStatusLabel,
-  getMedicalExamStatusStyles,
+  getValidityStatusLabel,
+  getValidityStatusStyles,
 } from "../functions/statusUtils";
 
 type EmployeesTableProps = {
@@ -100,11 +100,15 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
 
                     <span className="text-gray-400">Stav:</span>
                     <span
-                      className={`w-fit rounded-full px-2 py-0.5 text-xs ${getMedicalExamStatusStyles(
-                        medicalExamStatus,
-                      )}`}
+                      className={`w-fit rounded-full px-2 py-0.5 text-xs ${
+                        medicalExamStatus === "unknown"
+                          ? "bg-gray-100 text-gray-600"
+                          : getValidityStatusStyles(medicalExamStatus)
+                      }`}
                     >
-                      {getMedicalExamStatusLabel(medicalExamStatus)}
+                      {medicalExamStatus === "unknown"
+                        ? "Nelze určit"
+                        : getValidityStatusLabel(medicalExamStatus)}
                     </span>
                   </div>
                 </td>

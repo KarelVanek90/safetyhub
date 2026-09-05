@@ -1,7 +1,7 @@
 import { getDayLabel } from "../functions/dateUtils";
 import {
-  getMedicalExamStatusLabel,
-  getMedicalExamStatusStyles,
+  getValidityStatusLabel,
+  getValidityStatusStyles,
 } from "../functions/statusUtils";
 import type { Event } from "../types/event";
 
@@ -22,11 +22,15 @@ const EventItem = ({ event }: EventItemProps) => {
             <p className="font-medium">{event.title}</p>
 
             <p
-              className={`text-sm px-2 py-0.5 rounded-full w-fit ${getMedicalExamStatusStyles(
-                event.status,
-              )}`}
+              className={`text-sm px-2 py-0.5 rounded-full w-fit ${
+                event.status === "unknown"
+                  ? "bg-gray-100 text-gray-600"
+                  : getValidityStatusStyles(event.status)
+              }`}
             >
-              {getMedicalExamStatusLabel(event.status)}
+              {event.status === "unknown"
+                ? "Nelze určit"
+                : getValidityStatusLabel(event.status)}
             </p>
           </div>
 

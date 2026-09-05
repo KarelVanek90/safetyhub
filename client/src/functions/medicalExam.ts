@@ -1,22 +1,10 @@
 import type { EmployeeMedicalExamStatus } from "../types/medicalExamStatus";
+import { getValidityStatus } from "./dateUtils";
 
-type MedicalExamStatus = "valid" | "expiring" | "expired";
 type NextMedicalExamDate = Date | null;
 type EmployeeMedicalExamInfo = {
   status: EmployeeMedicalExamStatus;
   nextMedicalExamDate: NextMedicalExamDate;
-};
-
-const getMedicalExamStatus = (date: Date): MedicalExamStatus => {
-  const dateInspection = new Date(date.getTime());
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  dateInspection.setHours(0, 0, 0, 0);
-  const thirtyDaysFromToday = new Date(today.getTime());
-  thirtyDaysFromToday.setDate(today.getDate() + 30);
-  if (dateInspection < today) return "expired";
-  if (dateInspection <= thirtyDaysFromToday) return "expiring";
-  return "valid";
 };
 
 const getNextMedicalExamDate = (
@@ -41,7 +29,7 @@ export const getEmployeeMedicalExamInfo = (
 ): EmployeeMedicalExamInfo => {
   const nextMedicalExamDate = getNextMedicalExamDate(medicalExamDate, category);
   const status = nextMedicalExamDate
-    ? getMedicalExamStatus(nextMedicalExamDate)
+    ? getValidityStatus(nextMedicalExamDate)
     : "unknown";
   return { nextMedicalExamDate, status };
 };

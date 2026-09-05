@@ -1,20 +1,15 @@
-import type { EmployeeMedicalExamStatus } from "../types/medicalExamStatus";
-type MedicalExamStatusLabel = "Platné" | "Končí" | "Propadlé" | "Nelze určit";
-
-export const getMedicalExamStatusLabel = (
-  status: EmployeeMedicalExamStatus,
-): MedicalExamStatusLabel => {
+import type { ValidityStatus } from "../types/validityStatus";
+type ValidityStatusLabel = "Platné" | "Končí" | "Propadlé";
+export const getValidityStatusLabel = (
+  status: ValidityStatus,
+): ValidityStatusLabel => {
   if (status === "valid") return "Platné";
   if (status === "expiring") return "Končí";
-  if (status === "expired") return "Propadlé";
-  return "Nelze určit";
+  return "Propadlé";
 };
 
-export const getMedicalExamStatusStyles = (
-  status: EmployeeMedicalExamStatus,
-): string => {
+export const getValidityStatusStyles = (status: ValidityStatus): string => {
   if (status === "valid") return "bg-green-100 text-green-600";
   if (status === "expiring") return "bg-orange-100 text-orange-600";
-  if (status === "expired") return "bg-red-100 text-red-600";
-  return "bg-gray-100 text-gray-600";
+  return "bg-red-100 text-red-600";
 };
