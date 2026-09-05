@@ -124,7 +124,7 @@ const DocumentsTable = ({ documents }: DocumentsTableProps) => {
                     </span>
 
                     <span
-                      className={`text-xs px-2 py-0.5 rounded-full w-fit ${
+                      className={`w-fit rounded-full px-3 py-1 text-xs font-medium ${
                         status === "no-expiry"
                           ? "bg-gray-100 text-gray-600"
                           : getValidityStatusStyles(status)

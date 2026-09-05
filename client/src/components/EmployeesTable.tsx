@@ -20,15 +20,15 @@ const trainingConfig = {
 const statusConfig = {
   ok: {
     icon: Check,
-    className: "bg-green-100 text-green-600",
+    className: "bg-green-100 text-green-700",
   },
   warning: {
     icon: AlertTriangle,
-    className: "bg-yellow-100 text-yellow-600",
+    className: "bg-yellow-100 text-yellow-700",
   },
   error: {
     icon: X,
-    className: "bg-red-100 text-red-600",
+    className: "bg-red-100 text-red-700",
   },
 };
 
@@ -100,7 +100,7 @@ const EmployeesTable = ({ employees }: EmployeesTableProps) => {
 
                     <span className="text-gray-400">Stav:</span>
                     <span
-                      className={`w-fit rounded-full px-2 py-0.5 text-xs ${
+                      className={`w-fit rounded-full px-3 py-1 text-xs font-medium ${
                         medicalExamStatus === "unknown"
                           ? "bg-gray-100 text-gray-600"
                           : getValidityStatusStyles(medicalExamStatus)

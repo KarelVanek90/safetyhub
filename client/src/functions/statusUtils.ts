@@ -9,7 +9,7 @@ export const getValidityStatusLabel = (
 };
 
 export const getValidityStatusStyles = (status: ValidityStatus): string => {
-  if (status === "valid") return "bg-green-100 text-green-600";
-  if (status === "expiring") return "bg-orange-100 text-orange-600";
-  return "bg-red-100 text-red-600";
+  if (status === "valid") return "bg-green-100 text-green-700";
+  if (status === "expiring") return "bg-yellow-100 text-yellow-700";
+  return "bg-red-100 text-red-700";
 };
