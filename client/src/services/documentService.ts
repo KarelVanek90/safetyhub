@@ -46,3 +46,7 @@ export const editDocument = async (
 
   return response.data.docs;
 };
+
+export const deleteDocument = async (id: string): Promise<void> => {
+  await axios.delete(`${DOCUMENTS_URL}/${id}`);
+};
