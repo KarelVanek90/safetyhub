@@ -105,29 +105,19 @@ router.get("/:id", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    const {
-      title,
-      category,
-      employeeId,
-      issueDate,
-      expiryDate,
-      note,
-      fileUrl,
-    } = req.body;
+    const { employeeId, expiryDate } = req.body;
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({
         msg: "Neplatné ID dokumentu",
       });
     }
-    const fieldsToUpdate = {};
+    const fieldsToUpdate: Record<string, unknown> = {};
     const fieldsToUnset = {};
     const allowedFields = ["title", "category", "issueDate", "note", "fileUrl"];
 
     allowedFields.forEach((item) => {
       if (Object.hasOwn(req.body, item)) {
-        Object.assign(fieldsToUpdate, {
-          [item]: req.body[item],
-        });
+        fieldsToUpdate[item] = req.body[item];
       }
     });
 

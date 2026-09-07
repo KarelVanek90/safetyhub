@@ -1,5 +1,6 @@
 import express from "express";
 import Employee from "../models/Employee";
+import mongoose from "mongoose";
 const router = express.Router();
 
 router.get("/", async (_req, res) => {
@@ -64,23 +65,39 @@ router.get("/:id", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    const { name, position, category, medicalExamDate, training, ppe } =
-      req.body;
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({
+        msg: "Neplatné ID zaměstnance",
+      });
+    }
+    const fieldsToUpdate: Record<string, unknown> = {};
+    const allowedFields = [
+      "name",
+      "position",
+      "category",
+      "medicalExamDate",
+      "training",
+      "ppe",
+    ];
+    allowedFields.forEach((item) => {
+      if (Object.hasOwn(req.body, item)) {
+        fieldsToUpdate[item] = req.body[item];
+      }
+    });
+    if (Object.keys(fieldsToUpdate).length === 0) {
+      return res.status(400).json({
+        msg: "Nebyla odeslána žádná data k aktualizaci",
+      });
+    }
     const result = await Employee.findOneAndUpdate(
       { _id: req.params.id },
       {
-        $set: {
-          name,
-          position,
-          category,
-          medicalExamDate,
-          training,
-          ppe,
-        },
+        $set: fieldsToUpdate,
       },
       {
         new: true,
-      },
+        runValidators: true,
+      }
     );
     if (!result) {
       return res.status(404).json({
@@ -93,7 +110,15 @@ router.patch("/:id", async (req, res) => {
     });
   } catch (error) {
     console.error("CHYBA UPDATE EMPLOYEE:", error);
-    res.status(500).json({
+
+    if (error instanceof mongoose.Error.ValidationError) {
+      return res.status(400).json({
+        msg: "Zaměstnanec obsahuje chybějící nebo neplatná data",
+        docs: [],
+      });
+    }
+
+    return res.status(500).json({
       msg: "Zaměstnance se nepodařilo aktualizovat",
     });
   }
