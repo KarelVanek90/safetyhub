@@ -2,8 +2,6 @@
 
 SafetyHub is my full-stack project for Occupational Health & Safety (OHS) management.
 
-I am building the application step by step while learning and improving my skills in React, TypeScript, Node.js and backend development.
-
 > 🚧 The project is currently under development.
 
 ## About
