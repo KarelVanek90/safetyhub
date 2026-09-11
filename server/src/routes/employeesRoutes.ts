@@ -15,7 +15,6 @@ router.get("/", async (_req, res) => {
     console.error("CHYBA GET EMPLOYEES:", error);
     return res.status(500).json({
       msg: "Data se nepodařilo získat",
-      docs: [],
     });
   }
 });
@@ -37,8 +36,7 @@ router.post("/", async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      msg: "data se nopodařilo vložit",
-      docs: [],
+      msg: "data se nepodařilo vložit",
     });
   }
 });
@@ -97,7 +95,7 @@ router.patch("/:id", async (req, res) => {
       {
         new: true,
         runValidators: true,
-      }
+      },
     );
     if (!result) {
       return res.status(404).json({
@@ -114,7 +112,6 @@ router.patch("/:id", async (req, res) => {
     if (error instanceof mongoose.Error.ValidationError) {
       return res.status(400).json({
         msg: "Zaměstnanec obsahuje chybějící nebo neplatná data",
-        docs: [],
       });
     }
 

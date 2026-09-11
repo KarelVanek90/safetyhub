@@ -47,12 +47,10 @@ router.post("/", async (req, res) => {
     if (error instanceof mongoose.Error.ValidationError) {
       return res.status(400).json({
         msg: "Dokument obsahuje chybějící nebo neplatná data",
-        docs: [],
       });
     }
     return res.status(500).json({
       msg: "Dokument se nepodařilo vytvořit",
-      docs: [],
     });
   }
 });
@@ -70,7 +68,6 @@ router.get("/", async (_req, res) => {
 
     return res.status(500).json({
       msg: "Dokumenty se nepodařilo načíst",
-      docs: [],
     });
   }
 });
@@ -186,7 +183,6 @@ router.patch("/:id", async (req, res) => {
     if (error instanceof mongoose.Error.ValidationError) {
       return res.status(400).json({
         msg: "Dokument obsahuje chybějící nebo neplatná data",
-        docs: [],
       });
     }
     return res.status(500).json({
